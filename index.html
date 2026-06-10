@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Proposta — Phantom Reach · TriStack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #050507;
+    --bg-2: #08080c;
+    --panel: #0c0c11;
+    --panel-2: #111118;
+    --line: #1c1c24;
+    --line-2: #2a2a35;
+    --text: #f4f5f7;
+    --text-2: #a9adb8;
+    --text-3: #71767f;
+    --teal: #2dd4bf;
+    --violet: #a78bfa;
+    --grad: linear-gradient(100deg, #2dd4bf 0%, #46d2d0 24%, #7c9bf5 66%, #a78bfa 100%);
+    --teal-dim: rgba(45,212,191,0.12);
+    --violet-dim: rgba(167,139,250,0.14);
+    --font-d: 'Sora', system-ui, sans-serif;
+    --font-b: 'Manrope', system-ui, sans-serif;
+    --maxw: 1080px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--font-b); -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility; line-height: 1.5; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .gradient-text {
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  h1,h2,h3 { font-family: var(--font-d); letter-spacing: -0.025em; line-height: 1.08; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+  .eyebrow { font-family: var(--font-d); font-size: 12px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--teal); }
+
+  /* ---------- LOGO ---------- */
+  .logo { display: inline-flex; align-items: center; gap: 11px; }
+  .logo .name { font-family: var(--font-d); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: #fff; }
+  .logo svg { display: block; flex-shrink: 0; }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(5,5,7,0.72); backdrop-filter: blur(16px) saturate(140%);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .inner { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  nav .right { display: flex; align-items: center; gap: 16px; }
+  .valid-pill {
+    font-size: 12.5px; font-weight: 600; color: var(--text-2);
+    border: 1px solid var(--line-2); padding: 8px 15px; border-radius: 99px;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .valid-pill .dot { width: 7px; height: 7px; border-radius: 99px; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .btn {
+    font-family: var(--font-d); font-weight: 600; font-size: 14px; cursor: pointer;
+    padding: 11px 20px; border-radius: 11px; border: none; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .btn-primary { background: var(--grad); color: #04201c; box-shadow: 0 8px 26px -8px rgba(45,212,191,0.5); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -8px rgba(45,212,191,0.6); }
+  .btn-ghost { background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2); }
+  .btn-ghost:hover { background: var(--panel); border-color: var(--text-3); }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 90px 0 80px; overflow: hidden; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+  .glow.teal { width: 520px; height: 520px; background: radial-gradient(circle, rgba(45,212,191,0.28), transparent 70%); top: -200px; right: -160px; }
+  .glow.violet { width: 560px; height: 560px; background: radial-gradient(circle, rgba(167,139,250,0.24), transparent 70%); top: 40px; left: -240px; }
+  .hero .inner { position: relative; z-index: 1; }
+  .hero .eyebrow { margin-bottom: 22px; display: block; }
+  .hero h1 { font-size: clamp(44px, 7vw, 78px); font-weight: 800; }
+  .hero .sub { font-size: clamp(16px, 2.2vw, 19px); color: var(--text-2); margin-top: 24px; max-width: 620px; }
+  .hero-cta { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; align-items: center; }
+  .hero-cta .price-inline { font-family: var(--font-d); font-size: 15px; color: var(--text-3); font-weight: 500; }
+  .hero-cta .price-inline strong { color: var(--text); font-weight: 700; font-size: 18px; }
+
+  /* hero stat strip */
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 18px;
+    overflow: hidden; margin-top: 56px;
+  }
+  .hero-stats .s { background: var(--panel); padding: 22px 22px; }
+  .hero-stats .s .v { font-family: var(--font-d); font-size: 26px; font-weight: 800; letter-spacing: -0.03em; }
+  .hero-stats .s .k { font-size: 12.5px; color: var(--text-3); margin-top: 6px; font-weight: 600; }
+
+  /* ---------- SECTIONS ---------- */
+  section.block { padding: 70px 0; position: relative; }
+  .sec-head { max-width: 640px; }
+  .sec-head .eyebrow { display: block; margin-bottom: 14px; }
+  .sec-head h2 { font-size: clamp(30px, 4.5vw, 42px); font-weight: 700; }
+  .sec-head p { font-size: 16px; color: var(--text-2); margin-top: 16px; }
+
+  /* features */
+  .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 44px; }
+  .feature {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+    padding: 26px; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .feature:hover { transform: translateY(-3px); border-color: var(--line-2); box-shadow: 0 20px 50px -24px rgba(0,0,0,0.7); }
+  .feature .ico {
+    width: 50px; height: 50px; border-radius: 13px; display: grid; place-items: center;
+    color: var(--teal); background: var(--teal-dim); border: 1px solid rgba(45,212,191,0.22); margin-bottom: 18px;
+  }
+  .feature:nth-child(even) .ico { color: var(--violet); background: var(--violet-dim); border-color: rgba(167,139,250,0.26); }
+  .feature h3 { font-size: 19px; font-weight: 600; }
+  .feature .fn { font-size: 12px; color: var(--text-3); font-weight: 600; margin-top: 4px; font-family: var(--font-b); letter-spacing: 0.02em; }
+  .feature p { font-size: 14px; color: var(--text-2); margin-top: 12px; line-height: 1.6; }
+  .feature.span-2 { grid-column: span 2; }
+  .feature.span-2 { background: radial-gradient(120% 140% at 0% 0%, var(--teal-dim), transparent 50%), radial-gradient(120% 140% at 100% 100%, var(--violet-dim), transparent 50%), var(--panel); }
+
+  /* modes */
+  .modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+  .mode {
+    border: 1px solid var(--line); border-radius: 18px; padding: 26px; background: var(--panel);
+    transition: all 0.25s;
+  }
+  .mode:hover { transform: translateY(-3px); border-color: var(--line-2); }
+  .mode .mh { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .mode .mi { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; }
+  .mode.eco .mi { color: var(--teal); background: var(--teal-dim); }
+  .mode.bal .mi { color: var(--violet); background: var(--violet-dim); }
+  .mode.int .mi { color: #fbbf78; background: rgba(251,191,120,0.13); }
+  .mode .bars { display: flex; gap: 4px; align-items: flex-end; height: 28px; }
+  .mode .bars span { width: 6px; border-radius: 2px; background: var(--line-2); }
+  .mode.eco .bars span:nth-child(1){height:24px;background:var(--teal)} .mode.eco .bars span:nth-child(2){height:11px} .mode.eco .bars span:nth-child(3){height:11px}
+  .mode.bal .bars span:nth-child(1){height:14px} .mode.bal .bars span:nth-child(2){height:24px;background:var(--violet)} .mode.bal .bars span:nth-child(3){height:18px}
+  .mode.int .bars span:nth-child(1){height:11px} .mode.int .bars span:nth-child(2){height:18px} .mode.int .bars span:nth-child(3){height:24px;background:#fbbf78}
+  .mode h3 { font-size: 20px; font-weight: 700; }
+  .mode p { font-size: 13.5px; color: var(--text-2); margin-top: 8px; line-height: 1.55; }
+
+  /* pricing */
+  .pricing { padding: 74px 0; background: linear-gradient(180deg, transparent, var(--bg-2) 30%, var(--bg-2) 70%, transparent); position: relative; }
+  .invest-total {
+    border: 1px solid var(--line-2); border-radius: 22px; padding: 32px 36px; margin-top: 40px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    background: radial-gradient(120% 200% at 0% 0%, var(--teal-dim), transparent 55%), radial-gradient(120% 200% at 100% 100%, var(--violet-dim), transparent 55%), var(--panel);
+  }
+  .invest-total .lab { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-2); }
+  .invest-total .amt { font-family: var(--font-d); font-size: 54px; font-weight: 800; letter-spacing: -0.03em; margin-top: 6px; }
+  .invest-total .scope { font-size: 13.5px; color: var(--text-2); line-height: 1.8; text-align: right; }
+  .invest-total .scope b { color: var(--text); }
+
+  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+  .pay {
+    border: 1px solid var(--line); border-radius: 18px; padding: 26px 24px; background: var(--panel);
+    position: relative; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .pay.featured { border-color: rgba(45,212,191,0.45); background: radial-gradient(140% 120% at 50% 0%, var(--teal-dim), var(--panel) 62%); }
+  .pay .badge { position: absolute; top: 16px; right: 16px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #04201c; background: var(--teal); padding: 4px 10px; border-radius: 99px; }
+  .pay .method { display: flex; align-items: center; gap: 11px; font-family: var(--font-d); font-size: 16px; font-weight: 600; }
+  .pay .method .mi { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--panel-2); color: var(--teal); border: 1px solid var(--line-2); }
+  .pay.featured .method .mi { background: var(--teal); color: #04201c; border-color: var(--teal); }
+  .pay .big { font-family: var(--font-d); font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-top: 18px; line-height: 1; }
+  .pay .big small { font-size: 16px; font-weight: 600; color: var(--text-3); letter-spacing: 0; }
+  .pay .note { font-size: 13.5px; color: var(--text-2); margin-top: 10px; }
+  .pay .tot { font-size: 12.5px; color: var(--text-3); margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+  /* conditions */
+  .terms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+  .term { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .term .ti { color: var(--teal); margin-bottom: 14px; }
+  .term .tt { font-size: 14.5px; font-weight: 700; font-family: var(--font-d); }
+  .term .td { font-size: 13px; color: var(--text-2); margin-top: 6px; line-height: 1.5; }
+
+  /* final cta */
+  .final { padding: 30px 0 90px; }
+  .cta-band {
+    border-radius: 26px; padding: 48px 50px; background: var(--grad); color: #04130f;
+    display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+  .cta-band h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: #04130f; }
+  .cta-band p { font-size: 16px; margin-top: 10px; font-weight: 600; opacity: 0.8; max-width: 460px; }
+  .cta-band .actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+  .cta-band .btn-dark { background: #04130f; color: #eafff7; }
+  .cta-band .btn-dark:hover { transform: translateY(-2px); background: #021f17; }
+  .cta-band .contact { font-size: 14px; font-weight: 700; }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; }
+  footer .inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  footer .cp { font-size: 12.5px; color: var(--text-3); }
+
+  /* content is always visible — no entrance gating (reliability for client delivery) */
+  .reveal { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .features, .modes, .pay-grid { grid-template-columns: 1fr; }
+    .feature.span-2 { grid-column: span 1; }
+    .terms { grid-template-columns: repeat(2, 1fr); }
+    .invest-total { flex-direction: column; align-items: flex-start; }
+    .invest-total .scope { text-align: left; }
+    .cta-band { flex-direction: column; align-items: flex-start; padding: 36px 30px; }
+    .cta-band .actions { align-items: flex-start; width: 100%; }
+    nav .valid-pill { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="wrap inner">
+    <span class="logo">
+      <svg class="mark" width="33" height="27" viewBox="0 0 46 38" fill="none">
+        <rect x="12" y="4" width="30" height="8" rx="4" fill="#7c3aed"/>
+        <rect x="8" y="15" width="30" height="8" rx="4" fill="#6366f1"/>
+        <rect x="4" y="26" width="30" height="8" rx="4" fill="#14b8a6"/>
+      </svg>
+      <span class="name"><span style="color:#b22ce6">Tri</span>Stack</span>
+    </span>
+    <div class="right">
+      <span class="valid-pill"><span class="dot"></span> Proposta válida até domingo, 14/06</span>
+      <a class="btn btn-primary" href="#investimento">Ver investimento</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="glow teal"></div>
+  <div class="glow violet"></div>
+  <div class="wrap inner">
+    <span class="eyebrow reveal">Proposta Comercial · Desenvolvimento de Software</span>
+    <h1 class="reveal">Phantom Reach<br><span class="gradient-text">tráfego simplificado com IA</span></h1>
+    <p class="sub reveal">Uma plataforma onde o usuário só descreve o que quer promover — e a inteligência artificial encontra o público certo, equilibra o orçamento e acompanha tudo. Versão web e mobile.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="#investimento">Ver proposta e valores</a>
+      <a class="btn btn-ghost" href="#funcionalidades">Conhecer o sistema</a>
+      <span class="price-inline">a partir de <strong>12x R$ 500</strong> sem juros</span>
+    </div>
+
+    <div class="hero-stats reveal">
+      <div class="s"><div class="v gradient-text">R$ 6.000</div><div class="k">Investimento total</div></div>
+      <div class="s"><div class="v">Web + Mobile</div><div class="k">Plataforma completa</div></div>
+      <div class="s"><div class="v">IA</div><div class="k">Segmentação de público</div></div>
+      <div class="s"><div class="v">3 modos</div><div class="k">Econômico · Balanceado · Intensivo</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FEATURES ============ -->
+<section class="block" id="funcionalidades">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">O que está incluído</span>
+      <h2>Funcionalidades do sistema</h2>
+      <p>Pensado para quem não é especialista em mídia: simples de usar, com a IA cuidando da parte difícil e controle total de custos do início ao fim.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature span-2 reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
+        <h3>Segmentação assistida por IA</h3>
+        <div class="fn">NÚCLEO DO PRODUTO</div>
+        <p>O usuário descreve em texto livre o que deseja promover — por exemplo, "conteúdo sobre mods de terror de Minecraft" — e a inteligência artificial identifica automaticamente o nicho, o público potencial, o nível de afinidade e os segmentos mais alinhados, priorizando quem tem maior chance de engajar e reduzindo desperdício com público frio.</p>
+      </div>
+
+      <div class="feature reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l3-4 3 3 4-6"/></svg></span>
+        <h3>Painel simplificado</h3>
+        <div class="fn">DASHBOARD</div>
+        <p>Visão geral do alcance qualificado, investimento, campanhas ativas e saldo — com cartões de métrica, tendências e uma faixa que destaca o que precisa de atenção.</p>
+      </div>
+
+      <div class="feature reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2 0-2.8a2 2 0 0 0-3 .8M12 15l-3-3a22 22 0 0 1 8-9c2.5 0 3 .5 3 3a22 22 0 0 1-9 8"/></svg></span>
+        <h3>Criação de campanha guiada</h3>
+        <div class="fn">WIZARD PASSO A PASSO</div>
+        <p>Fluxo simples (objetivo, criativo, público, orçamento e revisão) que cria uma campanha sem jargão, com validação a cada etapa e previsão de resultado antes de publicar.</p>
+      </div>
+
+      <div class="feature reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+        <h3>Notificações inteligentes</h3>
+        <div class="fn">ALERTAS DA IA</div>
+        <p>A IA acompanha as campanhas e avisa só quando vale agir — bom desempenho, queda de performance ou saldo acabando — com ações resolvíveis em um clique.</p>
+      </div>
+
+      <div class="feature reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l3-4 3 3 4-6"/></svg></span>
+        <h3>Relatórios e performance</h3>
+        <div class="fn">ANÁLISE CLARA</div>
+        <p>Gráficos de alcance ao longo do tempo, métricas por campanha (cliques, CTR, CPC, engajamento) e o perfil do público alcançado — sem números que confundem.</p>
+      </div>
+
+      <div class="feature reveal">
+        <span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v0H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V9M17 13h.01"/></svg></span>
+        <h3>Controle financeiro e saldo</h3>
+        <div class="fn">PREVISIBILIDADE TOTAL</div>
+        <p>Limites de gasto, recarga de saldo via Pix ou cartão e previsibilidade total — o sistema nunca gasta além do orçamento definido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODES ============ -->
+<section class="block" id="modos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Flexibilidade</span>
+      <h2>Três modos de campanha</h2>
+      <p>O usuário só escolhe o modo e a IA equilibra custo e performance dentro do orçamento.</p>
+    </div>
+    <div class="modes">
+      <div class="mode eco reveal">
+        <div class="mh">
+          <span class="mi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-9 16-9 0 8-3 16-9 16z"/><path d="M9 17c2-4 5-6 9-7"/></svg></span>
+          <span class="bars"><span></span><span></span><span></span></span>
+        </div>
+        <h3>Econômico</h3>
+        <p>Foco em maximizar o alcance qualificado pelo menor custo possível. Entrega estável e barata.</p>
+      </div>
+      <div class="mode bal reveal">
+        <div class="mh">
+          <span class="mi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M5 7l-3 6h6zM19 7l-3 6h6z"/></svg></span>
+          <span class="bars"><span></span><span></span><span></span></span>
+        </div>
+        <h3>Balanceado</h3>
+        <p>Equilíbrio entre custo e performance. O ponto ideal para o dia a dia da maioria das campanhas.</p>
+      </div>
+      <div class="mode int reveal">
+        <div class="mh">
+          <span class="mi"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s5 3.5 5 9a5 5 0 0 1-10 0c0-1.5.6-2.8 1.4-3.7C8 10 9 11 9 12.5"/></svg></span>
+          <span class="bars"><span></span><span></span><span></span></span>
+        </div>
+        <h3>Intensivo</h3>
+        <p>Foco maior em performance e velocidade. Ideal para lançamentos e janelas curtas de divulgação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing" id="investimento">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Investimento</span>
+      <h2>Valor e condições</h2>
+      <p>Um único valor, sem surpresas — escolha como prefere pagar.</p>
+    </div>
+
+    <div class="invest-total reveal">
+      <div>
+        <div class="lab">Investimento total</div>
+        <div class="amt gradient-text">R$ 6.000</div>
+      </div>
+      <div class="scope">
+        Inclui <b>plataforma web</b> e <b>versão mobile</b>,<br>
+        segmentação por IA, modos de campanha,<br>
+        relatórios, notificações e controle financeiro.
+      </div>
+    </div>
+
+    <div class="pay-grid">
+      <div class="pay featured reveal">
+        <span class="badge">À vista</span>
+        <div class="method"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span> Pix</div>
+        <div class="big">R$ 6.000</div>
+        <div class="note">Pagamento à vista, com aprovação na hora.</div>
+        <div class="tot">Total: R$ 6.000</div>
+      </div>
+      <div class="pay reveal">
+        <div class="method"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v0H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V9M17 13h.01"/></svg></span> Cartão 6x</div>
+        <div class="big">6x <small>de R$ 1.000</small></div>
+        <div class="note">Sem juros no cartão de crédito.</div>
+        <div class="tot">Total: R$ 6.000</div>
+      </div>
+      <div class="pay reveal">
+        <div class="method"><span class="mi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v0H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V9M17 13h.01"/></svg></span> Cartão 12x</div>
+        <div class="big">12x <small>de R$ 500</small></div>
+        <div class="note">Sem juros no cartão de crédito.</div>
+        <div class="tot">Total: R$ 6.000</div>
+      </div>
+    </div>
+
+    <div class="terms">
+      <div class="term reveal">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="tt">Validade</div>
+        <div class="td">Proposta válida até domingo, 14/06/2026.</div>
+      </div>
+      <div class="term reveal">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="tt">Início</div>
+        <div class="td">O projeto começa após o aceite e a confirmação do pagamento inicial.</div>
+      </div>
+      <div class="term reveal">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <div class="tt">Entregas</div>
+        <div class="td">Versão web e mobile do sistema, conforme o escopo apresentado.</div>
+      </div>
+      <div class="term reveal">
+        <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+        <div class="tt">Suporte</div>
+        <div class="td">Acompanhamento e ajustes durante toda a implantação.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div>
+        <h2>Vamos colocar o Phantom Reach no ar?</h2>
+        <p>Aprove a proposta até domingo (14/06) e iniciamos o desenvolvimento.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-dark" href="mailto:contato@tristack.com.br?subject=Aceite%20da%20proposta%20Phantom%20Reach">Aceitar proposta →</a>
+        <span class="contact"><a href="mailto:contato@tristack.com.br">contato@tristack.com.br</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <span class="logo">
+      <svg width="29" height="24" viewBox="0 0 46 38" fill="none">
+        <rect x="12" y="4" width="30" height="8" rx="4" fill="#7c3aed"/>
+        <rect x="8" y="15" width="30" height="8" rx="4" fill="#6366f1"/>
+        <rect x="4" y="26" width="30" height="8" rx="4" fill="#14b8a6"/>
+      </svg>
+      <span class="name" style="font-size:17px"><span style="color:#b22ce6">Tri</span>Stack</span>
+    </span>
+    <span class="cp">Proposta confidencial · Phantom Reach · © 2026 TriStack</span>
+  </div>
+</footer>
+
+</body>
+</html>
