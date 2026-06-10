@@ -207,6 +207,48 @@
     .cta-band .actions { align-items: flex-start; width: 100%; }
     nav .valid-pill { display: none; }
   }
+
+  /* ---------- VIDEO ---------- */
+  .video-sec { padding: 56px 0 20px; }
+  .video-shell { max-width: 920px; margin: 32px auto 0; }
+  .video-frame {
+    position: relative; border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--line-2); background: #0b0b10;
+    box-shadow: 0 40px 100px -40px rgba(0,0,0,0.9), 0 0 0 1px rgba(45,212,191,0.06);
+  }
+  .video-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel-2); }
+  .video-bar .dot { width: 11px; height: 11px; border-radius: 99px; }
+  .video-bar .d1 { background: #ff5f57; } .video-bar .d2 { background: #febc2e; } .video-bar .d3 { background: #28c840; }
+  .video-bar .addr { margin-left: 12px; font-size: 12px; color: var(--text-3); font-family: var(--font-b); }
+  .video-stage { position: relative; aspect-ratio: 16 / 9; background: radial-gradient(120% 120% at 50% 0%, rgba(45,212,191,0.08), #06060a 60%); }
+  .video-stage iframe, .video-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 24px; }
+  .video-ph .play { width: 76px; height: 76px; border-radius: 99px; background: var(--grad); display: grid; place-items: center; box-shadow: 0 14px 40px -10px rgba(45,212,191,0.5); }
+  .video-ph .pt { font-family: var(--font-d); font-weight: 700; font-size: 18px; }
+  .video-ph .ps { font-size: 13.5px; color: var(--text-3); }
+
+  /* ---------- ACCEPT MODAL ---------- */
+  .modal-overlay { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(3,3,6,0.72); backdrop-filter: blur(8px); }
+  .modal-overlay.open { display: flex; }
+  .modal { width: 470px; max-width: 100%; max-height: 92vh; overflow-y: auto; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 22px; box-shadow: 0 40px 100px -30px rgba(0,0,0,0.85); }
+  .modal-head { padding: 26px 28px 4px; position: relative; }
+  .modal-head .eyebrow { display: block; margin-bottom: 10px; }
+  .modal-head h3 { font-size: 23px; font-weight: 700; }
+  .modal-head p { font-size: 14px; color: var(--text-2); margin-top: 8px; }
+  .modal-close { position: absolute; top: 20px; right: 20px; width: 34px; height: 34px; border-radius: 9px; background: var(--panel-2); border: 1px solid var(--line-2); color: var(--text-2); cursor: pointer; display: grid; place-items: center; }
+  .modal-close:hover { color: var(--text); }
+  .modal form { padding: 18px 28px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .field label { font-size: 13px; font-weight: 600; color: var(--text-2); display: block; margin-bottom: 7px; }
+  .field input, .field textarea, .field select { width: 100%; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 11px; color: var(--text); font-family: var(--font-b); font-size: 14.5px; outline: none; transition: border-color 0.18s; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--teal); }
+  .field textarea { resize: none; }
+  .modal form .btn-primary { width: 100%; justify-content: center; margin-top: 4px; padding: 14px; font-size: 15px; }
+  .modal-note { font-size: 12px; color: var(--text-3); text-align: center; }
+  .modal-success { padding: 40px 30px; text-align: center; display: none; flex-direction: column; align-items: center; gap: 8px; }
+  .modal-success.show { display: flex; }
+  .modal-success .ok { width: 70px; height: 70px; border-radius: 20px; background: var(--teal-dim); color: var(--teal); display: grid; place-items: center; margin-bottom: 10px; }
+  .modal-success h3 { font-size: 22px; font-weight: 700; }
+  .modal-success p { font-size: 14.5px; color: var(--text-2); max-width: 320px; }
 </style>
 </head>
 <body>
@@ -225,6 +267,7 @@
     <div class="right">
       <span class="valid-pill"><span class="dot"></span> Proposta válida até domingo, 14/06</span>
       <a class="btn btn-primary" href="#investimento">Ver investimento</a>
+      <button type="button" class="btn btn-ghost" onclick="openAccept()">Aceitar</button>
     </div>
   </div>
 </nav>
@@ -251,6 +294,31 @@
     </div>
   </div>
 </header>
+
+<!-- ============ VIDEO ============ -->
+<section class="video-sec" id="demonstracao">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin: 0 auto; text-align: center;">
+      <span class="eyebrow" style="display:block; margin-bottom:14px;">Demonstração</span>
+      <h2>Veja o sistema em ação</h2>
+      <p style="margin-left:auto; margin-right:auto;">Um tour rápido pelo Phantom Reach — da criação de campanha à segmentação por IA.</p>
+    </div>
+    <div class="video-shell reveal">
+      <div class="video-frame">
+        <div class="video-bar">
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+          <span class="addr">phantom-reach.app · demonstração</span>
+        </div>
+        <div class="video-stage" id="videoStage">
+          <iframe src="https://www.youtube-nocookie.com/embed/bto7cwIrXsg?rel=0&modestbranding=1"
+            title="Demonstração do Phantom Reach" loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ FEATURES ============ -->
 <section class="block" id="funcionalidades">
@@ -421,7 +489,7 @@
         <p>Aprove a proposta até domingo (14/06) e iniciamos o desenvolvimento.</p>
       </div>
       <div class="actions">
-        <a class="btn btn-dark" href="mailto:contato@tristack.com.br?subject=Aceite%20da%20proposta%20Phantom%20Reach">Aceitar proposta →</a>
+        <button type="button" class="btn btn-dark" onclick="openAccept()">Aceitar proposta →</button>
         <span class="contact"><a href="mailto:contato@tristack.com.br">contato@tristack.com.br</a></span>
       </div>
     </div>
@@ -442,5 +510,82 @@
   </div>
 </footer>
 
+<!-- ============ ACCEPT MODAL ============ -->
+<div class="modal-overlay" id="acceptModal" onclick="if(event.target===this)closeAccept()">
+  <div class="modal">
+    <div class="modal-head">
+      <button type="button" class="modal-close" onclick="closeAccept()" aria-label="Fechar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <span class="eyebrow">Aceite da proposta</span>
+      <h3>Vamos começar! 🚀</h3>
+      <p>Confirme seus dados abaixo. A TriStack recebe o aviso na hora e entra em contato para iniciar o projeto.</p>
+    </div>
+    <form id="acceptForm" action="https://formspree.io/f/xeewlqyy" method="POST">
+      <input type="hidden" name="_subject" value="✅ Proposta Phantom Reach ACEITA" />
+      <input type="hidden" name="Proposta" value="Phantom Reach — R$ 6.000" />
+      <div class="field">
+        <label for="ac_nome">Seu nome</label>
+        <input id="ac_nome" name="Nome" required placeholder="Nome completo" />
+      </div>
+      <div class="field">
+        <label for="ac_email">Seu e-mail</label>
+        <input id="ac_email" type="email" name="email" required placeholder="voce@email.com" />
+      </div>
+      <div class="field">
+        <label for="ac_pay">Forma de pagamento escolhida</label>
+        <select id="ac_pay" name="Forma de pagamento">
+          <option>Pix à vista — R$ 6.000</option>
+          <option>Cartão 6x sem juros — R$ 1.000/mês</option>
+          <option>Cartão 12x sem juros — R$ 500/mês</option>
+          <option>Quero conversar antes de decidir</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ac_msg">Mensagem (opcional)</label>
+        <textarea id="ac_msg" name="Mensagem" rows="2" placeholder="Alguma observação?"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Confirmar aceite →</button>
+      <div class="modal-note">Ao confirmar, você concorda em iniciar o projeto conforme esta proposta.</div>
+    </form>
+    <div class="modal-success" id="acceptSuccess">
+      <span class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      <h3>Aceite enviado! 🎉</h3>
+      <p>Obrigado! A TriStack já recebeu a confirmação e entrará em contato em breve para dar o pontapé inicial.</p>
+      <button type="button" class="btn btn-primary" style="margin-top:14px" onclick="closeAccept()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openAccept() { document.getElementById('acceptModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeAccept() { document.getElementById('acceptModal').classList.remove('open'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAccept(); });
+
+  (function () {
+    var form = document.getElementById('acceptForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type=submit]');
+      var original = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Enviando…';
+      try {
+        var res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('acceptSuccess').classList.add('show');
+        } else { throw new Error('fail'); }
+      } catch (err) {
+        btn.disabled = false; btn.textContent = original;
+        alert('Não foi possível enviar agora. Verifique sua conexão e tente novamente, ou escreva para contato@tristack.com.br.');
+      }
+    });
+  })();
+</script>
 </body>
 </html>
